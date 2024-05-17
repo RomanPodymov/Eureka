@@ -469,6 +469,13 @@ extension Section /* Helpers */ {
         newRow.wasAddedTo(section: self)
     }
 
+    /// Remove all rows where tags are represented as `CaseIterable` enum cases
+    /// - Parameter type: type of the enum with tags
+    func removeAllRowsWithIterableTags<RowTagType: CaseIterable & RawRepresentable>(type: RowTagType.Type) {
+        type.allCases.forEach { item in
+            removeAll(where: { $0.tag == item.rawValue as? String })
+        }
+    }
 }
 
 /**
