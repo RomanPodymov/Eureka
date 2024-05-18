@@ -25,6 +25,12 @@
 import XCTest
 @testable import Eureka
 
+private enum RowTag: String {
+    case first
+    case second
+    case third
+}
+
 class HelperMethodTests: BaseEurekaTests {
 
     func testRowByTag() {
@@ -128,4 +134,14 @@ class HelperMethodTests: BaseEurekaTests {
         XCTAssertEqual(allSections.count, 6)
     }
 
+    func testRemoveForTag() {
+        let row = LabelRow(tag: RowTag.first.rawValue)
+        manySectionsForm[0] <<< LabelRow(tag: RowTag.first.rawValue)
+        XCTAssertEqual(manySectionsForm[0].rowBy(tag: RowTag.first.rawValue), row)
+        manySectionsForm[0].remove(tag: RowTag.first)
+    }
+
+    func testRemoveAllRowsWithIterableTags() {
+    
+    }
 }
